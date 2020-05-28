@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MainController!{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+
+
+        {# Titre h1 #}
+        <div class="row">
+            <h1 class="col-12 text-center my-5">Ajouter un bien immobilier</h1>
+        </div>
+
+        
+        {# Formulaire d'ajout d'un bien #}
+        <div class="row">
+            <div class="col-12 col-md-4 offset-md-4">
+                {{form(registrationForm)}}
+            <div>
+        </div>
+
+    </div>
+{% endblock %}

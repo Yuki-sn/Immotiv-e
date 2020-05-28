@@ -1,0 +1,9 @@
+Activation de votre compte sur leblogdebatman.fr
+
+Bonjour, merci pour votre inscription sur le site leblogdebatman.fr !
+Veuillez recopier et vous rendre sur le lien ci-dessous pour activer votre compte :
+
+{# Utilisation de url() plutôt que de path() car le lien est envoyé dans un email, et doit donc être absolu pour être fonctionnel #}
+{{ url('app_activation', { activationToken: user.activationToken }) }}
+
+À bientôt !
