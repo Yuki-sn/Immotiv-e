@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Form\BienImmobilierFormType;
 use App\Entity\BienImmo;
 use DateTime;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BienImmoController extends AbstractController
 {
@@ -50,17 +52,65 @@ class BienImmoController extends AbstractController
     /**
      * @Route("/acheter/", name="main_achat")
      */
-    public function achat()
+    public function achat(Request $request, PaginatorInterface $paginator)
     {
-        return $this->render('bien_immo/achat.html.twig',);
+        // On récupère dans l'url la données GET page (si elle n'existe pas, la valeur retournée par défaut sera la page 1)
+        $requestedPage = $request->query->getInt('page', 1);
+
+        // Si le numéro de page demandé dans l'url est inférieur à 1, erreur 404
+        if($requestedPage < 1){
+            throw new NotFoundHttpException();
+        }
+
+        // Récupération du manager des entités
+        $em = $this->getDoctrine()->getManager();
+
+        // Création d'une requête qui servira au paginator pour récupérer les articles de la page courante
+        $query = $em->createQuery('SELECT a FROM App\Entity\BienImmo a WHERE a.typeOfPropriete = 1');
+
+        // On stocke dans $pageImmobilere les 10 articles de la page demandée dans l'URL
+        $pageImmobilere = $paginator->paginate(
+            $query,     // Requête de selection des articles en BDD
+            $requestedPage,     // Numéro de la page dont on veux les articles
+            4     // Nombre d'articles par page
+        );
+
+        return $this->render('bien_immo/achat.html.twig', [
+            'annonces' => $pageImmobilere
+        ]);
+
     }
 
     /**
      * @Route("/louer/", name="main_louer")
      */
-    public function louer()
+    public function louer(Request $request, PaginatorInterface $paginator)
     {
-        return $this->render('bien_immo/louer.html.twig',);
+        // On récupère dans l'url la données GET page (si elle n'existe pas, la valeur retournée par défaut sera la page 1)
+        $requestedPage = $request->query->getInt('page', 1);
+
+        // Si le numéro de page demandé dans l'url est inférieur à 1, erreur 404
+        if($requestedPage < 1){
+            throw new NotFoundHttpException();
+        }
+
+        // Récupération du manager des entités
+        $em = $this->getDoctrine()->getManager();
+
+        // Création d'une requête qui servira au paginator pour récupérer les articles de la page courante
+        $query = $em->createQuery('SELECT a FROM App\Entity\BienImmo a WHERE a.typeOfPropriete = 0');
+
+        // On stocke dans $pageImmobilere les 10 articles de la page demandée dans l'URL
+        $pageImmobilere = $paginator->paginate(
+            $query,     // Requête de selection des articles en BDD
+            $requestedPage,     // Numéro de la page dont on veux les articles
+            4      // Nombre d'articles par page
+        );
+
+        return $this->render('bien_immo/louer.html.twig', [
+            'annonces' => $pageImmobilere
+        ]);
+
     }
 
 

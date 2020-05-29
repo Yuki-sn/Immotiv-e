@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use App\Entity\BienImmo;
@@ -28,7 +29,7 @@ class MainController extends AbstractController
         $em = $this->getDoctrine()->getManager();
 
         // Création d'une requête qui servira au paginator pour récupérer les articles de la page courante
-        $query = $em->createQuery('SELECT a FROM App\Entity\BienImmo a');
+        $query = $em->createQuery('SELECT a FROM App\Entity\BienImmo a ORDER BY a.datePublicationAddImmo DESC');
 
         // On stocke dans $pageImmobilere les 10 articles de la page demandée dans l'URL
         $pageImmobilere = $paginator->paginate(
@@ -49,7 +50,9 @@ class MainController extends AbstractController
      */
     public function publicationView(BienImmo $BienImmo, Request $request){
 
-        return $this->render('main/annonce_view.html.twig', );
+        return $this->render('main/annonce_view.html.twig', [
+            'bienimmo' => $BienImmo,
+        ]);
   
     }
 

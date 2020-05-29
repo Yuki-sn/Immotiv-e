@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-12 my-3 text-center">
                 <div class="d-inline-block">
-                    {{ knp_pagination_render(annonces) }}
+                    {{ knp_pagination_render(annonces) }} 
                 </div>
             </div>
         </div>
@@ -34,9 +34,9 @@
                 {% else %} 
                     {% for annonce in annonces %}
                         <div class="card mr-auto ml-auto mt-3" style="width: 60rem;">
-                            <img class="card-img-top" src="..." alt="Card image cap">
+                            <img class="card-img-top picture-immo" src="images/tenor.gif" alt="Card image cap">
                             <div class="card-body">
-                            <h5 class="card-title">{{annonce.title}}</h5>
+                            <h5 class="card-title">{{annonce.title}} :: titre dégeulasse dsl</h5>
                             </div>
                             <ul class="list-group list-group-flush">
                             <li class="list-group-item">Il y à {{annonce.room}} pièces pour un superficie de {{annonce.area}} m² pour un prix de  {{annonce.price}}{% if annonce.typeOfPropriete == true %} euro{% else %} euro par mois{% endif %}                          
@@ -44,7 +44,7 @@
                             <li class="list-group-item">l'annonce à étais posté le {{annonce.datePublicationAddImmo|date('d/m/Y')}} elle se sité a {{annonce.common}} dans le {{annonce.postalCode}}</li>
                             </ul>
                             <div class="card-body">
-                            <a href="{{ path('annonce_view', { slug: annonce.slug }) }}" class="card-link">Plus d'information içi !</a>
+                            <a href="{{ path('annonce_view', { slug: annonce.slug }) }}" class="card-link">Plus d'information içi ! concernant l'annonce : {{annonce.title}}</a>
                             </div>
                         </div>
                         {% endfor %}            
