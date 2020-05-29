@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -61,6 +63,16 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=32)
      */
     private $activationToken;
+
+    /**
+     * @ORM\OneToMany(targetEntity=BienImmo::class, mappedBy="author")
+     */
+    private $bienImmos;
+
+    public function __construct()
+    {
+        $this->bienImmos = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -196,6 +208,37 @@ class User implements UserInterface
     public function setActivationToken(string $activationToken): self
     {
         $this->activationToken = $activationToken;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BienImmo[]
+     */
+    public function getBienImmos(): Collection
+    {
+        return $this->bienImmos;
+    }
+
+    public function addBienImmo(BienImmo $bienImmo): self
+    {
+        if (!$this->bienImmos->contains($bienImmo)) {
+            $this->bienImmos[] = $bienImmo;
+            $bienImmo->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBienImmo(BienImmo $bienImmo): self
+    {
+        if ($this->bienImmos->contains($bienImmo)) {
+            $this->bienImmos->removeElement($bienImmo);
+            // set the owning side to null (unless already changed)
+            if ($bienImmo->getAuthor() === $this) {
+                $bienImmo->setAuthor(null);
+            }
+        }
 
         return $this;
     }

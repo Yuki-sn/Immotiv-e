@@ -2,10 +2,13 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use App\Entity\User;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\Entity\User;
+use App\Entity\BienImmo;
+use DateTime;
+
 use Faker;
 
 class UserFixtures extends Fixture

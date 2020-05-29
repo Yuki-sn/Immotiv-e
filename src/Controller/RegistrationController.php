@@ -10,9 +10,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
+use Symfony\Component\Form\FormError;
 
 class RegistrationController extends AbstractController
 {
@@ -42,7 +42,23 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-        
+            $email = (new TemplatedEmail())
+            ->from(new Address('noreply@leblogdebatman.fr', 'coucou'))
+            ->to($user->getEmail())
+            ->subject('Activation de votre compte')
+            ->htmlTemplate('security/emails/activation.html.twig')
+            ->textTemplate('security/emails/activation.txt.twig')
+            ->context([
+                'user' => $user
+            ]);
+
+            // Envoi de l'email
+            $mailer->send($email);
+        ;
+
+            // Message flash de type "success"
+            $this->addFlash('success', 'Compte crée avec succès ! un email vous a etais envoyé');
+            return $this->redirectToRoute('app_login');
     
         }    
        

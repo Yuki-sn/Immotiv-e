@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200528141643 extends AbstractMigration
+final class Version20200529091628 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,7 +22,8 @@ final class Version20200528141643 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE bien_immo (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(100) NOT NULL, room INT NOT NULL, price INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE bien_immo ADD slug VARCHAR(255) NOT NULL');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_174DAB7989D9B62 ON bien_immo (slug)');
     }
 
     public function down(Schema $schema) : void
@@ -30,6 +31,7 @@ final class Version20200528141643 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP TABLE bien_immo');
+        $this->addSql('DROP INDEX UNIQ_174DAB7989D9B62 ON bien_immo');
+        $this->addSql('ALTER TABLE bien_immo DROP slug');
     }
 }

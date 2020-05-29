@@ -4,23 +4,59 @@
 
 {% block body %}
 
-    <div class="container-fluid">
+    <div class="container-fluid">        
+        {# Affichage des messages flashs de type "success" si il y en a #}
         {% include 'partials/flashes/success.html.twig' %}
-
-        
-
+        {# Affichage des messages flashs de type "error" si il y en a #}
+        {% include 'partials/flashes/error.html.twig' %}
 
         {# Titre h1 #}
         <div class="row">
-            <h1 class="col-12 text-center my-5">Accueil</h1>
+            <h1 class="col-12 text-center my-5">les 3 derniere annonces</h1>
+        </div>
+        {# Affichage du menu de navigation de knp_paginator #}
+        <div class="row">
+            <div class="col-12 my-3 text-center">
+                <div class="d-inline-block">
+                    {{ knp_pagination_render(annonces) }}
+                </div>
+            </div>
         </div>
 
-        {# Contenus lorems ipsum pour habiller un peu l'accueil #}
         <div class="row">
+            <div class="col-12 col-md-8 offset-md-2">               
 
-            <h2 class="text-center col-12 my-4">Lorem ipsum dolor sit amet, consectetur.</h2>
-
-            <p class="col-12 col-md-10 offset-md-1 text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aut cumque dicta dignissimos eum minus molestias nostrum officiis optio quas qui, recusandae sapiente ullam! Accusamus culpa dolorum eius eos ex fugiat harum id iusto, nam possimus praesentium repellendus repudiandae similique unde, veritatis voluptatibus voluptatum? Ab molestiae mollitia qui sequi suscipit.</p>
+                {# Si il n'y a pas d'articles à afficher, message en conséquence #}
+                {% if annonces is empty %}
+                    <div class="row">
+                        <p class="col-12 text-center alert alert-warning">Aucune publication à afficher.</p>
+                    </div>
+                {% else %} 
+                    {% for annonce in annonces %}
+                        <div class="card mr-auto ml-auto mt-3" style="width: 60rem;">
+                            <img class="card-img-top" src="..." alt="Card image cap">
+                            <div class="card-body">
+                            <h5 class="card-title">{{annonce.title}}</h5>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Il y à {{annonce.room}} pièces pour un superficie de {{annonce.area}} m² pour un prix de  {{annonce.price}}{% if annonce.typeOfPropriete == true %} euro{% else %} euro par mois{% endif %}                          
+                            </li>
+                            <li class="list-group-item">l'annonce à étais posté le {{annonce.datePublicationAddImmo|date('d/m/Y')}} elle se sité a {{annonce.common}} dans le {{annonce.postalCode}}</li>
+                            </ul>
+                            <div class="card-body">
+                            <a href="{{ path('annonce_view', { slug: annonce.slug }) }}" class="card-link">Plus d'information içi !</a>
+                            </div>
+                        </div>
+                        {% endfor %}            
+                {% endif %}                
+        
+                <div class="my-3 text-center">
+                    <div class="d-inline-block">
+                        {# Affichage du menu permettant de naviguer entre les différentes pages #}
+                        {{ knp_pagination_render(annonces) }}
+                    </div>
+                </div>        
+            </div>
         </div>
     </div>
 {% endblock %}
