@@ -66,7 +66,7 @@ class BienImmoController extends AbstractController
         $em = $this->getDoctrine()->getManager();
 
         // Création d'une requête qui servira au paginator pour récupérer les articles de la page courante
-        $query = $em->createQuery('SELECT a FROM App\Entity\BienImmo a WHERE a.typeOfPropriete = 1');
+        $query = $em->createQuery('SELECT a FROM App\Entity\BienImmo a WHERE a.typeOfPropriete = 1 ORDER BY a.datePublicationAddImmo DESC');
 
         // On stocke dans $pageImmobilere les 10 articles de la page demandée dans l'URL
         $pageImmobilere = $paginator->paginate(
@@ -98,7 +98,7 @@ class BienImmoController extends AbstractController
         $em = $this->getDoctrine()->getManager();
 
         // Création d'une requête qui servira au paginator pour récupérer les articles de la page courante
-        $query = $em->createQuery('SELECT a FROM App\Entity\BienImmo a WHERE a.typeOfPropriete = 0');
+        $query = $em->createQuery('SELECT a FROM App\Entity\BienImmo a WHERE a.typeOfPropriete = 0 ORDER BY a.datePublicationAddImmo DESC');
 
         // On stocke dans $pageImmobilere les 10 articles de la page demandée dans l'URL
         $pageImmobilere = $paginator->paginate(
