@@ -87,6 +87,11 @@ class BienImmo
      */
     private $author;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $appartOrHouse;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -211,4 +216,17 @@ class BienImmo
 
         return $this;
     }
+
+    public function getAppartOrHouse(): ?bool
+    {
+        return $this->appartOrHouse;
+    }
+
+    public function setAppartOrHouse(bool $appartOrHouse): self
+    {
+        $this->appartOrHouse = $appartOrHouse;
+
+        return $this;
+    }
+
 }

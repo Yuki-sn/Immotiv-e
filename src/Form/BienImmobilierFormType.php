@@ -108,7 +108,14 @@ class BienImmobilierFormType extends AbstractType
                     'Vente' => true,
                     'Location' => false,
                 ]
-            ])            
+            ])   
+            ->add('appartOrHouse', ChoiceType::class, [
+                'label' => 'Type de bien immobilier',
+                'choices'  => [
+                    'Appartement' => true,
+                    'Maison' => false,
+                ]
+            ])         
             ->add('save', SubmitType::class, [
                 'label' => 'Ajouter un bien',
                 'attr' => [

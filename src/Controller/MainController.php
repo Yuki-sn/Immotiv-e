@@ -38,23 +38,23 @@ class MainController extends AbstractController
             3      // Nombre d'articles par page
         );
 
-        return $this->render('main/index.html.twig', [
+        return $this->render('main/home.html.twig', [
             'annonces' => $pageImmobilere
         ]);
     }
 
-   /**
+    /**
      * Page d'affichage d'une annonce en détail
      *
-     * @Route("/annonce/{slug}/", name="annonce_view")
+     * @Route("/profil/", name="main_profil")
      */
-    public function publicationView(BienImmo $BienImmo, Request $request){
-
-        return $this->render('main/annonce_view.html.twig', [
-            'bienimmo' => $BienImmo,
-        ]);
+    public function profil(){
+        
+        return $this->render('main/profil.html.twig');
   
     }
+
+    
 
    
 }

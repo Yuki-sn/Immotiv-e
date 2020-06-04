@@ -24,7 +24,7 @@
         </div>
 
         <div class="row">
-            <div class="col-12 col-md-8 offset-md-2">               
+            <div class="col-12 col-md-8 offset-md-2">          
 
                 {# Si il n'y a pas d'articles à afficher, message en conséquence #}
                 {% if annonces is empty %}
@@ -36,15 +36,15 @@
                         <div class="card mr-auto ml-auto mt-3" style="width: 60rem;">
                             <img class="card-img-top picture-immo" src="images/tenor.gif" alt="Card image cap">
                             <div class="card-body">
-                            <h5 class="card-title">{{annonce.title}} :: titre dégeulasse dsl</h5>
+                                <h5 class="card-title">{{annonce.title}} :: titre dégeulasse dsl</h5>
                             </div>
                             <ul class="list-group list-group-flush">
                             <li class="list-group-item">Il y à {{annonce.room}} pièces pour un superficie de {{annonce.area}} m² pour un prix de  {{annonce.price}}{% if annonce.typeOfPropriete == true %} euro{% else %} euro par mois{% endif %}                          
                             </li>
-                            <li class="list-group-item">l'annonce à étais posté le {{annonce.datePublicationAddImmo|date('d/m/Y')}} elle se sité a {{annonce.common}} dans le {{annonce.postalCode}}</li>
+                            <li class="list-group-item">il s'agit{% if annonce.appartOrHouse == true %} d'un appartement {% else %} d'une maison {% endif %} elle se situe a {{annonce.common}} dans le {{annonce.postalCode}}. L'annonce à étais posté le {{annonce.datePublicationAddImmo|date('d/m/Y')}} </li>
                             </ul>
                             <div class="card-body">
-                            <a href="{{ path('annonce_view', { slug: annonce.slug }) }}" class="card-link">Plus d'information içi ! concernant l'annonce : {{annonce.title}}</a>
+                                <a href="{{ path('annonce_view', { slug: annonce.slug }) }}" class="card-link">Plus d'information içi ! concernant l'annonce : {{annonce.title}}</a>                           
                             </div>
                         </div>
                         {% endfor %}            

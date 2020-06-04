@@ -45,9 +45,15 @@
             {# Paquet de boutons à droite #}
             <ul class="navbar-nav ml-auto pr-2">
                 {% if app.user %}
+                    <li class="nav-item{{ currentRoute == 'all_annonce' ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ path('all_annonce') }}">Toutes mes annonces</a>
+                    </li>
+                    <li class="nav-item{{ currentRoute == 'main_profil' ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ path('main_profil') }}">Profil</a>
+                    </li>
                     <li class="nav-item{{ currentRoute == 'app_logout' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt mr-1"></i>Déconnexion</a>
-                    </li>
+                    </li>                    
                 {% else %}
                     <li class="nav-item{{ currentRoute == 'app_register' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ path('app_register') }}"><i class="fas fa-user-plus mx-1"></i>Inscription</a>

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MainController!{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        {% include 'partials/flashes/success.html.twig' %}
+        <div class="row">
+            <p class="text-center col-12"><a href="{{ path('main_home') }}">Retour liste des bien immobiliers</a></p>
+        </div>
+        {# Titre h1 #}
+        <div class="row">
+            <h1 class="col-12 text-center my-5">{{bienimmo.title}}</h1>
+        </div>
+        
+
+        <div class="row">
+            <div class="col-12 col-md-8 offset-md-2">
+                <img style="width: 40rem;" class="card-img-top" src="../../images/tenor.gif" alt="Card image cap">
+                <div class="card-body">
+                    <p class="card-text">Cette {% if bienimmo.appartOrHouse == true %}Appartement{% else %}Maison{% endif %} se situe a {{bienimmo.common}} dans le département {{bienimmo.postalCode}}</p>
+                </div>            
+            </div>
+            <div class="col-12 col-md-8 offset-md-2">
+                <div class="card-body">
+                    <p class="card-text">Il y à {{bienimmo.room}} pièces pour un superficie de {{bienimmo.area}} m² pour un prix de  {{bienimmo.price}}{% if bienimmo.typeOfPropriete == true %} euro{% else %} euro par mois{% endif %}</p>
+                </div>            
+            </div>
+        </div>
+       
+    </div>
+{% endblock %}

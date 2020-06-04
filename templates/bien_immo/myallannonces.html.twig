@@ -1,0 +1,68 @@
+{# Utilisation du squelette de page base.html.twig #}
+{% extends 'base.html.twig' %}
+
+{# Titre de la page #}
+{% block title %}Gestion des annonces{% endblock %}
+
+{# Contenu de la page #}
+{% block body %}
+
+<div class="container-fluid">
+
+    {# Affichage des messages flashs de type "success" si il y en a #}
+    {% include 'partials/flashes/success.html.twig' %}
+
+    {# H1 #}
+    <div class="row">
+        <h1 class="col-12 text-center my-5">Gestion des annonces</h1>
+    </div>
+    <div class="row">
+        <div class="col-12 my-3 text-center">
+            <div class="d-inline-block">
+                {{ knp_pagination_render(myAnnonce) }} 
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-12 col-md-10 offset-md-2">
+            <div class="row">
+                 {# Infos des annonces #}
+                 {% if myAnnonce is empty %}
+                 <div class="row">
+                     <p class="col-12 text-center alert alert-warning">Aucune publication à afficher.</p>
+                 </div>
+             {% else %} 
+                {% for annonce in myAnnonce %}
+                    <div class="col-12 col-md-9 px-2 py-3 bg-dark d-flex justify-content-center align-items-center">
+                        <ul class="list-group col-12 col-md-8 p-0">
+                            <li class="list-group-item bg-black">Titre de votre annonce: <span class="text-info">{{ annonce.title }}</span></li>
+                            <li class="list-group-item bg-black">Vile de votre annonce: <span class="text-info">{{ annonce.common }}</span></li>   
+                            <li class="list-group-item bg-black">Code postal de votre annonce: <span class="text-info">{{ annonce.postalCode }}</span></li>  
+                            <li class="list-group-item bg-black">Adresse de votre annonce: <span class="text-info">{{ annonce.address }}</span></li> 
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li class="list-group-item bg-black">
+                                    <p class="mb-0 mt-3">
+                                        <a href="{{ path('immo_edit', { id: annonce.id }) }}" class="text-warning mr-3"><i class="fas fa-edit mr-1"></i>Modifier</a>
+                                        <a href="{{ path('bien_delet', { id: annonce.id, csrf_token: csrf_token('bien_delet' ~ annonce.id )}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette publication ?')" class="text-danger"><i class="fas fa-trash-alt mr-1"></i>Supprimer</a>
+                                    </p>
+                                </li>
+                            {% endif %}   
+                        </ul>
+                    </div>
+                {% endfor %}            
+             {% endif %}
+                
+                   
+                    
+
+               
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

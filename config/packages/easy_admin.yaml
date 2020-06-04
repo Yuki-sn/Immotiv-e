@@ -1,0 +1,19 @@
+easy_admin:
+    formats:
+        date:     'd/m/Y'
+        time:     'H:i:s'
+        datetime: 'd/m/Y H:i:s'
+    site_name: 'Administration Générale'
+    design:
+        form_theme:
+            - "@EasyAdmin/form/bootstrap_4.html.twig"
+            - "@FOSCKEditor/Form/ckeditor_widget.html.twig"
+        brand_color: 'grey'
+        menu:
+            - { label: 'Revenir au site', route: 'main_home', icon: 'link'}
+            - User
+            - BienImmo
+    entities:
+        # List the entity class name you want to manage
+        - App\Entity\User
+        - App\Entity\BienImmo

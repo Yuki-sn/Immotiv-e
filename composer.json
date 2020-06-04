@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "antishov/doctrine-extensions-bundle": "^1.4",
+        "easycorp/easyadmin-bundle": "^2.3",
         "exercise/htmlpurifier-bundle": "^3.0",
         "fzaninotto/faker": "^1.9",
         "knplabs/knp-paginator-bundle": "^5.2",
